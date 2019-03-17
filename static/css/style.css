@@ -1,0 +1,71 @@
+::-moz-selection { /* Code for Firefox */
+    color: white;
+    background: #0089e4;
+}
+  
+::selection {
+    color: white;
+    background: #0089e4;
+}
+
+.bg-skyblue{
+    background : #0089e4 !important;
+}
+
+.text-skyblue{
+    color: #0089e4 !important;
+}
+
+.btn-skyblue{
+    background : #0089e4;
+    color: white;
+    border: none;
+}
+
+.btn-outline-skyblue{
+    border: 1px solid #0089e4;
+    background: none;
+    color: #0089e4;
+}
+
+.btn-outline-skyblue:hover{
+    background: #0089e4;
+    color: white;
+}
+
+.border-skyblue{
+    border: 1px solid #0089e4;
+}
+
+.text-bold{
+    font-weight: bold;
+}
+
+.rounded-pill{
+    border-radius: 200px !important;
+}
+
+.rounded-15{
+    border-radius: 15px;
+}
+
+.form-control:focus{
+    box-shadow: none !important;
+    border: 1px solid #0089e4 !important;
+    /* color: #0089e4; */
+}
+
+.close:focus{
+    color: #0089e4 !important;
+    outline: none !important;
+}
+
+.nav-link:hover{
+    border-radius: none !important;
+    border: 1px solid white !important;
+}
+
+.nav-link:focus{
+    border-radius: none !important;
+    border: 1px solid white !important;
+}

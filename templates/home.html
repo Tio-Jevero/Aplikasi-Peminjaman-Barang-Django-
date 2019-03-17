@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block blockname %}
+<div class="jumbotron pb-0 bg-skyblue rounded-0 text-light mb-1">
+    <h1 class="display-4 ml-3 " style="font-size: 45px;"><i class="fa fa-box mr-3"></i>Aplikasi Peminjaman Barang</h1>
+</div>
+    <div class="contain pr-5 pl-5">
+        <button type="button" class="btn btn-outline-skyblue rounded-0 mt-3" data-toggle="modal" data-target="#pinjambarangform"><i class="fa fa-box mr-2"></i>Pinjam Barang</button>
+        <div class="modal fade" id="pinjambarangform" tabindex="-1" role="dialog" aria-labelledby="pinjambarangform" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content border-0 shadow rounded-0">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Pinjam Barang</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-flex">
+                            <!-- <input type=text class="form-control rounded-0 mt-1 col-9" id="exampleInputPassword1" placeholder="Nama Barang">
+                            <input type=text class="form-control rounded-0 mt-1 col-3 border-left-0" id="exampleInputPassword1" placeholder="Nomor"> -->
+                            {{ form.barang }}
+                            {{ form.nomor_barang }}
+                        </div>
+                        <div class="d-flex">
+                            <!-- <input type=text class="form-control rounded-0 mt-1 col-9" id="exampleInputPassword1" placeholder="Peminjam">
+                            <div class=""></div>
+                            <select class="form-control rounded-0 border-left-0 mt-1 col">
+                                <option>X TKJ 1</option>
+                                <option>X TKJ 2</option>
+                            </select> -->
+                            {{ form.peminjam }}
+                            {{ form.kelas_peminjam }}
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-skyblue rounded-0 btn-block mt-3 mb-2"><i class="fa fa-box mr-2"></i>Pinjam</button>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+        <table class="table mt-3 border-skyblue mb-5">
+            <thead class="bg-skyblue text-white">
+                <tr>
+                    <th scope="col" class="border-bottom-0">Nama Barang</th>
+                    <th scope="col" class="border-bottom-0">Peminjam</th>
+                    <th scope="col" class="border-bottom-0">Waktu Pinjam</th>
+                    <th scope="col" class="border-bottom-0">Waktu Kembali</th>
+                    <th scope="col" class="border-bottom-0">Status</th>
+                    <th scope="col" class="text-center border-bottom-0 pr-0 pl-0" style="width: 30px;"><i class="fa fa-check"></i></th>
+                    <th scope="col" class="text-center border-bottom-0 pr-0 pl-0" style="width: 30px;"><i class="fa fa-trash"></i></th>
+                </tr>
+            </thead>
+            <tbody class="border-skyblue">
+                {% for list in listpinjaman %}
+                    <tr class="border-skyblue">
+                        <th scope="row" class="border-skyblue">{{list.barang}} ({{list.nomor_barang}})</th>
+                        <td class="border-skyblue">{{ list.peminjam }} ({{ list.kelas_peminjam }})</td>
+                        <td class="border-skyblue">{{ list.waktu_pinjam }}</td>
+                        <td class="border-skyblue">{% if  list.waktu_kembali == None %} {% else %}{{ list.waktu_kembali }} {% endif %} </td>
+                        <td class="border-skyblue {% if  list.waktu_kembali == None %} text-danger {% else %} text-success {% endif %} text-bold">{% if  list.waktu_kembali == None %} <i class="fa fa-times-circle mr-1"></i>Belum Kembali{% else %}<i class="fa fa-check-circle mr-1"></i>Kembali {% endif %}</td>
+                        <td class="border-skyblue text-success text-bold text-center"><a href=" {% url 'barang_kembali' list.id %} " class="btn {% if list.waktu_kembali %} btn-outline-secondary {% else %} btn-outline-success {% endif %} rounded-0 {% if list.waktu_kembali %} disabled {% endif %}"><i class="fa fa-check"></i></a></td>
+                        <td class="border-skyblue text-success text-bold text-center"><a href=" {% url 'hapus_list' list.id %} " class="btn btn-outline-secondary btn-outline-danger rounded-0 "><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                {% endfor %}   
+            </tbody>
+        </table>
+    </div>
+{% endblock blockname %}
+    
